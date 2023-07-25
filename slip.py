@@ -80,11 +80,14 @@ class Enlace:
         frame = self.buffer.split(b'\xc0')
         self.buffer = frame[-1]
 
-        # Ignorar os dados vazios
         non_void = [data for data in frame[:-1] if data != b'']
 
         for datagrama in non_void:
-            data = self.escape_undo(datagrama)
-            self.callback(data)
+            try:
+                data = self.escape_undo(datagrama)
+                self.callback(data)
+            except:
+                import traceback
+                traceback.print_exc()
         pass
                
