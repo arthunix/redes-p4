@@ -54,6 +54,7 @@ class Enlace:
         datagrama = datagrama.replace(b'\xc0', b'\xdb\xdc')
         return datagrama
 
+    # PASSO 4
     def escape_undo(self, datagrama):
         datagrama = datagrama.replace(b'\xdb\xdc', b'\xc0')
         datagrama = datagrama.replace(b'\xdb\xdd', b'\xdb')
@@ -76,12 +77,15 @@ class Enlace:
         # vir quebrado de várias formas diferentes - por exemplo, podem vir
         # apenas pedaços de um quadro, ou um pedaço de quadro seguido de um
         # pedaço de outro, ou vários quadros de uma vez só.
+        
+        # PASSO 3
         self.buffer += dados
         frame = self.buffer.split(b'\xc0')
         self.buffer = frame[-1]
 
         non_void = [data for data in frame[:-1] if data != b'']
 
+        # PASSO 5
         for datagrama in non_void:
             try:
                 data = self.escape_undo(datagrama)
