@@ -47,11 +47,13 @@ class Enlace:
     def registrar_recebedor(self, callback):
         self.callback = callback
 
+    # PASSO 2
     def escape(self, datagrama):
         datagrama = datagrama.replace(b'\xdb', b'\xdb\xdd')
         datagrama = datagrama.replace(b'\xc0', b'\xdb\xdc')
         return datagrama
 
+    # PASSO 1
     def enviar(self, datagrama):
         # TODO: Preencha aqui com o código para enviar o datagrama pela linha
         # serial, fazendo corretamente a delimitação de quadros e o escape de
